@@ -26,7 +26,7 @@
 *   **SVG Radial Gauges**: Glowing neon gauges plotting **Hype Factor** and **Fan Tension** adjusting dynamically via CSS and stroke-dashoffset formulas.
 *   **Meme Caps & Trophy Tallies**: Shifting counters that keep track of stadium metrics like "RCB Hope" or "Meme Cap level".
 
-### 4. 🔮 AI Match Predictor
+### 5. 🔮 AI Match Predictor
 *   **Live Win Probability Engine: Predicts the batting or bowling side’s winning chances dynamically based on runs, wickets, overs, and match pressure.
 *   **Projected Final Score: Estimates likely finishing totals using current run rate, wickets in hand, and momentum shifts.
 *   **Pressure & Momentum Analysis: Detects high-pressure situations like collapses, death-over chaos, or clutch finishes.
