@@ -51,6 +51,9 @@
       <button class="tab-btn" data-tab="ticker" onclick="switchTab('ticker')">
         <span class="tab-icon">⚡</span> LIVE TICKER
       </button>
+      <button class="tab-btn" data-tab="predictor" onclick="switchTab('predictor')">
+        <span class="tab-icon">🔮</span> PREDICTOR
+      </button>
       <button class="tab-btn" data-tab="lab" onclick="switchTab('lab')">
         <span class="tab-icon">🧪</span> PERSONA LAB
       </button>
@@ -342,6 +345,216 @@
           </div>
         </section>
 
+        <!-- TAB CONTENT: PREDICTOR -->
+        <section id="tab-predictor" class="tab-content predictor-tab">
+          <div class="panel-header">
+            <h2>🔮 AI MATCH PREDICTOR</h2>
+            <p>Enter live match details — get AI-powered win probability, projected score, and key match insights.</p>
+          </div>
+
+          <!-- MATCH SETUP CARD -->
+          <div class="predictor-setup-card">
+            <div class="predictor-setup-grid">
+
+              <!-- TEAM SELECTORS -->
+              <div class="pred-field-group">
+                <label class="pred-label">🏏 BATTING TEAM</label>
+                <select id="predBattingTeam" class="pred-select" onchange="updatePredictorTeams()">
+                  <option value="">Select Batting Team...</option>
+                  <option value="RCB">🔴 Royal Challengers Bengaluru</option>
+                  <option value="CSK">💛 Chennai Super Kings</option>
+                  <option value="MI">💙 Mumbai Indians</option>
+                  <option value="KKR">💜 Kolkata Knight Riders</option>
+                  <option value="DC">🔵 Delhi Capitals</option>
+                  <option value="PBKS">❤️ Punjab Kings</option>
+                  <option value="RR">🩷 Rajasthan Royals</option>
+                  <option value="SRH">🧡 Sunrisers Hyderabad</option>
+                  <option value="GT">🟡 Gujarat Titans</option>
+                  <option value="LSG">🩵 Lucknow Super Giants</option>
+                </select>
+              </div>
+
+              <div class="pred-field-group">
+                <label class="pred-label">⚡ BOWLING TEAM</label>
+                <select id="predBowlingTeam" class="pred-select" onchange="updatePredictorTeams()">
+                  <option value="">Select Bowling Team...</option>
+                  <option value="RCB">🔴 Royal Challengers Bengaluru</option>
+                  <option value="CSK">💛 Chennai Super Kings</option>
+                  <option value="MI">💙 Mumbai Indians</option>
+                  <option value="KKR">💜 Kolkata Knight Riders</option>
+                  <option value="DC">🔵 Delhi Capitals</option>
+                  <option value="PBKS">❤️ Punjab Kings</option>
+                  <option value="RR">🩷 Rajasthan Royals</option>
+                  <option value="SRH">🧡 Sunrisers Hyderabad</option>
+                  <option value="GT">🟡 Gujarat Titans</option>
+                  <option value="LSG">🩵 Lucknow Super Giants</option>
+                </select>
+              </div>
+
+              <!-- FORMAT AND INNINGS -->
+              <div class="pred-field-group">
+                <label class="pred-label">📋 FORMAT</label>
+                <select id="predFormat" class="pred-select" onchange="handleFormatChange()">
+                  <option value="T20">T20 (20 Overs)</option>
+                  <option value="ODI">ODI (50 Overs)</option>
+                </select>
+              </div>
+
+              <div class="pred-field-group">
+                <label class="pred-label">🔢 INNINGS</label>
+                <select id="predInnings" class="pred-select" onchange="toggleTargetField()">
+                  <option value="1">1st Innings</option>
+                  <option value="2">2nd Innings (Chase)</option>
+                </select>
+              </div>
+
+              <!-- SCORE METRICS -->
+              <div class="pred-field-group">
+                <label class="pred-label">📊 CURRENT SCORE</label>
+                <div class="pred-input-with-icon">
+                  <span class="pred-input-icon">🏏</span>
+                  <input type="number" id="predScore" class="pred-input" placeholder="e.g. 142" min="0" max="720" oninput="liveUpdatePrediction()" />
+                </div>
+              </div>
+
+              <div class="pred-field-group">
+                <label class="pred-label">❌ WICKETS FALLEN</label>
+                <div class="pred-input-with-icon">
+                  <span class="pred-input-icon">🎳</span>
+                  <input type="number" id="predWickets" class="pred-input" placeholder="0–10" min="0" max="10" oninput="liveUpdatePrediction()" />
+                </div>
+              </div>
+
+              <div class="pred-field-group">
+                <label class="pred-label">⏱️ OVERS COMPLETED</label>
+                <div class="pred-input-with-icon">
+                  <span class="pred-input-icon">🕐</span>
+                  <input type="number" id="predOvers" class="pred-input" placeholder="e.g. 14.3" min="0" step="0.1" oninput="liveUpdatePrediction()" />
+                </div>
+              </div>
+
+              <!-- TARGET (2nd innings only) -->
+              <div class="pred-field-group" id="predTargetGroup" style="display: none;">
+                <label class="pred-label">🎯 TARGET SCORE</label>
+                <div class="pred-input-with-icon">
+                  <span class="pred-input-icon">🏆</span>
+                  <input type="number" id="predTarget" class="pred-input" placeholder="Target to chase" min="1" oninput="liveUpdatePrediction()" />
+                </div>
+              </div>
+
+            </div>
+
+            <!-- ADVANCED FACTORS ROW -->
+            <div class="pred-factors-card">
+              <h4 class="pred-section-title">⚗️ ADVANCED MATCH FACTORS</h4>
+              <div class="pred-factors-grid">
+
+                <div class="pred-factor-item">
+                  <label class="pred-label">🏟️ VENUE TYPE</label>
+                  <select id="predVenue" class="pred-select pred-select-sm">
+                    <option value="neutral">Neutral Venue</option>
+                    <option value="batting">Batting Friendly Pitch</option>
+                    <option value="bowling">Bowling/Seaming Pitch</option>
+                    <option value="spin">Spin-Friendly Dry Track</option>
+                  </select>
+                </div>
+
+                <div class="pred-factor-item">
+                  <label class="pred-label">🎲 TOSS RESULT</label>
+                  <select id="predToss" class="pred-select pred-select-sm">
+                    <option value="batting_won">Batting Team Won Toss</option>
+                    <option value="bowling_won">Bowling Team Won Toss</option>
+                    <option value="unknown">Toss Unknown</option>
+                  </select>
+                </div>
+
+                <div class="pred-factor-item">
+                  <label class="pred-label">☁️ CONDITIONS</label>
+                  <select id="predConditions" class="pred-select pred-select-sm">
+                    <option value="clear">Clear & Sunny</option>
+                    <option value="overcast">Overcast (Swing-Friendly)</option>
+                    <option value="dew">Heavy Dew (2nd Innings Favored)</option>
+                  </select>
+                </div>
+
+                <div class="pred-factor-item">
+                  <label class="pred-label">📍 MATCH PHASE</label>
+                  <select id="predPhase" class="pred-select pred-select-sm">
+                    <option value="powerplay">Powerplay (1-6 Overs)</option>
+                    <option value="middle">Middle Overs (7-15)</option>
+                    <option value="death">Death Overs (16-20)</option>
+                  </select>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- PREDICT BUTTON -->
+            <button class="generate-btn glow-predict" onclick="runMatchPrediction()" id="predictBtn">
+              🔮 PREDICT MATCH OUTCOME
+            </button>
+          </div>
+
+          <!-- PREDICTION OUTPUT PANEL -->
+          <div class="prediction-results-panel" id="predictionResults" style="display: none;">
+
+            <!-- HEADER RESULT BANNER -->
+            <div class="pred-result-banner" id="predResultBanner">
+              <div class="pred-winner-text">
+                <div class="pred-winner-label">PREDICTED WINNER</div>
+                <div class="pred-winner-name" id="predWinnerName">—</div>
+              </div>
+              <div class="pred-confidence-badge" id="predConfidenceBadge">HIGH CONFIDENCE</div>
+            </div>
+
+            <!-- WIN PROBABILITY BAR -->
+            <div class="pred-result-card">
+              <h4 class="pred-result-section">WIN PROBABILITY</h4>
+              <div class="pred-teams-prob-row">
+                <span class="pred-team-name" id="predTeamALabel">TEAM A</span>
+                <span class="pred-team-name" id="predTeamBLabel">TEAM B</span>
+              </div>
+              <div class="pred-prob-bar">
+                <div class="pred-prob-fill-a" id="predProbFillA" style="width: 50%;"></div>
+                <div class="pred-prob-fill-b" id="predProbFillB" style="width: 50%;"></div>
+              </div>
+              <div class="pred-teams-prob-row">
+                <span class="pred-pct-val" id="predPctA">50%</span>
+                <span class="pred-pct-val" id="predPctB">50%</span>
+              </div>
+            </div>
+
+            <!-- KEY METRICS GRID -->
+            <div class="pred-metrics-grid" id="predMetricsGrid">
+              <!-- Dynamically populated by JS -->
+            </div>
+
+            <!-- PROJECTED SCORE / REQUIRED RUNS -->
+            <div class="pred-result-card" id="predProjectionCard">
+              <h4 class="pred-result-section" id="predProjectionTitle">PROJECTED FINAL SCORE</h4>
+              <div class="pred-projection-number" id="predProjectionValue">—</div>
+              <div class="pred-projection-sub" id="predProjectionSub">Calculating...</div>
+            </div>
+
+            <!-- AI ANALYSIS TEXT -->
+            <div class="pred-analysis-card">
+              <h4 class="pred-result-section">🤖 AI MATCH ANALYSIS</h4>
+              <div class="pred-analysis-text" id="predAnalysisText">
+                Analysis loading...
+              </div>
+            </div>
+
+            <!-- KEY MOMENTS TIMELINE -->
+            <div class="pred-result-card">
+              <h4 class="pred-result-section">⚡ CRITICAL TURNING POINTS</h4>
+              <div class="pred-timeline" id="predTimeline">
+                <!-- dynamically populated -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
       </main>
 
       <!-- RIGHT COLUMN: DYNAMIC ANALYTICS DASHBOARD -->
@@ -434,6 +647,20 @@
               <span></span>
               <span></span>
               <span></span>
+            </div>
+          </div>
+
+          <!-- MEME SOUNDBOARD PANEL -->
+          <div class="soundboard-card border-top" style="margin-top: 20px;">
+            <h4 class="metric-title-small" style="margin-bottom: 8px;">📣 FAN SOUNDBOARD</h4>
+            <p class="dashboard-sub text-purple" style="margin-bottom: 12px; font-size: 10px;">Synthesized live in-browser</p>
+            <div class="soundboard-grid">
+              <button class="soundboard-btn" onclick="playSynthSound('airhorn')" title="MLG Airhorn Blast">📯 Airhorn</button>
+              <button class="soundboard-btn" onclick="playSynthSound('sad-trombone')" title="Sad Trombone Wails">😭 Sad Trombone</button>
+              <button class="soundboard-btn" onclick="playSynthSound('dun-dun-dun')" title="Dramatic Tension Hits">🚨 Dun Dun Dun</button>
+              <button class="soundboard-btn" onclick="playSynthSound('boing')" title="Spring Jumping Sound">🤡 Spring Boing</button>
+              <button class="soundboard-btn" onclick="playSynthSound('crickets')" title="Awkward Silence Chirps">🦗 Crickets</button>
+              <button class="soundboard-btn" onclick="playSynthSound('explosion')" title="Rage TV Breakout Smash">💥 TV Smash</button>
             </div>
           </div>
 
