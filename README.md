@@ -28,11 +28,11 @@
 
 ### 5. 🔮 AI Match Predictor
 *   Live Win Probability Engine: Predicts the batting or bowling side’s winning chances dynamically based on runs, wickets, overs, and match pressure.
-*   **Projected Final Score: Estimates likely finishing totals using current run rate, wickets in hand, and momentum shifts.
-*   **Pressure & Momentum Analysis: Detects high-pressure situations like collapses, death-over chaos, or clutch finishes.
-*   **Team-vs-Team Intelligence: Allows users to simulate matchups like RCB vs CSK or MI vs GT with predictive insights.
-*   **Interactive Prediction Dashboard: Features glowing cyberpunk visuals, live probability bars, projected outcomes, and emotional crowd metrics.
-*   **Scenario Simulation: Users can manually tweak wickets, overs, or target scores to instantly visualize alternate match outcomes.
+*   Projected Final Score: Estimates likely finishing totals using current run rate, wickets in hand, and momentum shifts.
+*   Pressure & Momentum Analysis: Detects high-pressure situations like collapses, death-over chaos, or clutch finishes.
+*   Team-vs-Team Intelligence: Allows users to simulate matchups like RCB vs CSK or MI vs GT with predictive insights.
+*   Interactive Prediction Dashboard: Features glowing cyberpunk visuals, live probability bars, projected outcomes, and emotional crowd metrics.
+*   Scenario Simulation: Users can manually tweak wickets, overs, or target scores to instantly visualize alternate match outcomes.
 
 ### 6. 🧪 Custom Persona Laboratory
 *   **DNA Constructor**: Design your own custom fan profiles specifying name, avatar emoji, team bias, vibe class, and customized catchphrases.
