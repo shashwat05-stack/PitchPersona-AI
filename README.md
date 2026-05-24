@@ -26,11 +26,19 @@
 *   **SVG Radial Gauges**: Glowing neon gauges plotting **Hype Factor** and **Fan Tension** adjusting dynamically via CSS and stroke-dashoffset formulas.
 *   **Meme Caps & Trophy Tallies**: Shifting counters that keep track of stadium metrics like "RCB Hope" or "Meme Cap level".
 
-### 5. 🧪 Custom Persona Laboratory
+### 4. 🔮 AI Match Predictor
+*   **Live Win Probability Engine: Predicts the batting or bowling side’s winning chances dynamically based on runs, wickets, overs, and match pressure.
+*   **Projected Final Score: Estimates likely finishing totals using current run rate, wickets in hand, and momentum shifts.
+*   **Pressure & Momentum Analysis: Detects high-pressure situations like collapses, death-over chaos, or clutch finishes.
+*   **Team-vs-Team Intelligence: Allows users to simulate matchups like RCB vs CSK or MI vs GT with predictive insights.
+*   **Interactive Prediction Dashboard: Features glowing cyberpunk visuals, live probability bars, projected outcomes, and emotional crowd metrics.
+*   **Scenario Simulation: Users can manually tweak wickets, overs, or target scores to instantly visualize alternate match outcomes.
+
+### 6. 🧪 Custom Persona Laboratory
 *   **DNA Constructor**: Design your own custom fan profiles specifying name, avatar emoji, team bias, vibe class, and customized catchphrases.
 *   **LocalStorage Persistent**: Saved custom characters automatically compile in your commentary grid and participate in active debates across page reloads!
 
-### 6. 🔊 Web Audio Synthesizer & Voice Speech Config
+### 7. 🔊 Web Audio Synthesizer & Voice Speech Config
 *   **Digital Sound Synth**: Synthesizes keyboard clicks, success chimes, and deep rumbles directly in-code using the native Web Audio API—completely asset-free.
 *   **Text-to-Speech Readers**: Configures your browser's SpeechSynthesis engine to read out commentaries in local accents (Indian, British, American, etc.) to match the persona's speaking channel.
 
