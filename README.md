@@ -53,14 +53,3 @@ This project runs entirely **client-side** and has **zero server dependencies**.
     ```
 2.  Open [index.html](index.html) directly in any modern browser (Chrome, Edge, Safari, Firefox).
 3.  Enjoy the local offline experience immediately!
-
----
-
-## ⚙️ Unlocking Real Generative AI (Optional)
-By default, the application runs on a robust, rule-based **Offline AI Simulation Engine** pre-loaded with thousands of stadium slang and dialogue combinations. 
-
-To unlock true generative AI comments:
-1.  Obtain an API key from [Google AI Studio](https://aistudio.google.com/).
-2.  Open the app and navigate to the **Settings** (⚙️) tab.
-3.  Paste your key, select your model (`gemini-1.5-flash` or `gemini-1.5-pro`), and click **Save Settings**.
-4.  *Your key is saved 100% locally in your browser's secure `localStorage` and is only sent directly to Google's official API servers.*
