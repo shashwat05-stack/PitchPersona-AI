@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PitchPersona AI - Cricket Commentary & Debate Arena</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <!-- Futuristic Ambient Background -->
+  <div class="background-glow"></div>
+  <div class="ambient-particle-container" id="particleContainer"></div>
+
+  <div class="page">
+    
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="live-indicator">
+          <span class="live-dot pulse"></span>
+          <span id="systemModeBadge">LIVE IPL MODE</span>
+        </div>
+        <h1>PITCHPERSONA AI</h1>
+        <p class="tagline">Multiverse Fan Debates & Dynamic AI Cricket commentary</p>
+      </div>
+      
+      <div class="header-right">
+        <div class="control-badge api-status-badge offline" id="apiStatusDisplay">
+          <span class="api-dot"></span>
+          <span class="status-text">OFFLINE GENERATOR</span>
+        </div>
+        <button class="sound-toggle-btn" id="soundToggle" onclick="toggleSound()" title="Toggle Synthesizer Sound Effects">
+          🔊 SOUND ON
+        </button>
+      </div>
+    </header>
+
+    <!-- TABS NAVIGATION -->
+    <nav class="tabs-navigation">
+      <button class="tab-btn active" data-tab="commentary" onclick="switchTab('commentary')">
+        <span class="tab-icon">🎤</span> COMMENTARY
+      </button>
+      <button class="tab-btn" data-tab="debate" onclick="switchTab('debate')">
+        <span class="tab-icon">⚔️</span> DEBATE ARENA
+      </button>
+      <button class="tab-btn" data-tab="ticker" onclick="switchTab('ticker')">
+        <span class="tab-icon">⚡</span> LIVE TICKER
+      </button>
+      <button class="tab-btn" data-tab="lab" onclick="switchTab('lab')">
+        <span class="tab-icon">🧪</span> PERSONA LAB
+      </button>
+      <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">
+        <span class="tab-icon">⚙️</span> SETTINGS
+      </button>
+    </nav>
+
+    <!-- TWO COLUMN LAYOUT -->
+    <div class="main-layout">
+      
+      <!-- LEFT COLUMN: ACTIVE CONTENT -->
+      <main class="main-content">
+
+        <!-- TAB CONTENT: COMMENTARY -->
+        <section id="tab-commentary" class="tab-content active">
+          <div class="panel-header">
+            <h2>CHOOSE YOUR FAN PERSONA</h2>
+            <p>Select a fan profile to react emotionally to match highlights.</p>
+          </div>
+
+          <!-- PERSONA GRID -->
+          <div class="persona-grid" id="personaGrid">
+            <!-- Dynamically populated to support custom personas too! -->
+          </div>
+
+          <!-- EVENT INPUT -->
+          <div class="input-section">
+            <div class="input-header">
+              <h3>MATCH EVENT</h3>
+              <span class="word-count" id="commentaryWordCount">0 chars</span>
+            </div>
+            <textarea
+              id="eventInput"
+              placeholder="Describe a live cricket moment (e.g., 'Virat Kohli got out for a duck on his very first ball!' or 'Dhoni finishes off in style with a 105m last ball six')..."
+              oninput="updateCharCount()"
+            ></textarea>
+          </div>
+
+          <!-- QUICK TAGS -->
+          <div class="quick-tags-container">
+            <h4>QUICK SCENARIOS:</h4>
+            <div class="quick-tags">
+              <button onclick="fillEvent('Virat Kohli got out on duck')">Virat Kohli Golden Duck 🦆</button>
+              <button onclick="fillEvent('Dhoni hit a last-ball six to win the match')">Dhoni Last-Ball Six 🦁</button>
+              <button onclick="fillEvent('MI lost 3 wickets in powerplay to Jasprit Bumrah')">Bumrah Powerplay Chaos 💥</button>
+              <button onclick="fillEvent('RCB won by 1 run defending 10 off the final over')">RCB 1-Run Thriller 🏆</button>
+              <button onclick="fillEvent('No-ball on final delivery turned into a free hit and a six')">Final Ball No-Ball Drama 🚨</button>
+              <button onclick="fillEvent('Rohit Sharma dropped a simple catch at slip in final over')">Rohit Dropped Catch 🤦‍♂️</button>
+            </div>
+          </div>
+
+          <!-- CONTROLS & GENERATE -->
+          <div class="actions-row">
+            <div class="slider-control-group">
+              <div class="toggle-box">
+                <label class="switch">
+                  <input type="checkbox" id="memeToggle"/>
+                  <span class="slider"></span>
+                </label>
+                <p>MEME MODE</p>
+              </div>
+              <div class="slider-box">
+                <label for="rageMultiplier">Rage Factor: <span id="rageVal">1x</span></label>
+                <input type="range" id="rageMultiplier" min="0.5" max="3" step="0.5" value="1" oninput="updateRageVal(this.value)"/>
+              </div>
+            </div>
+
+            <button class="generate-btn glow-orange" onclick="generateReaction()" id="genReactionBtn">
+              GENERATE COMMENTARY
+            </button>
+          </div>
+
+          <!-- OUTPUT -->
+          <div class="output-card">
+            <div class="card-header">
+              <span class="card-title">AI FAN REACTION</span>
+              <button class="action-mini-btn" id="ttsBtn" onclick="speakReaction()" disabled title="Read out loud">🔊 Read</button>
+            </div>
+            <div id="output" class="output-text">
+              Select a persona, type or select a match event, and hit "GENERATE COMMENTARY" to view reactions!
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB CONTENT: DEBATE ARENA -->
+        <section id="tab-debate" class="tab-content">
+          <div class="panel-header">
+            <h2>AGENTIC FAN DEBATE ARENA</h2>
+            <p>Select multiple fan agents, select an event, and watch them clash in a real-time debated feed!</p>
+          </div>
+
+          <div class="debate-setup-card">
+            <h3>1. SELECT AGENT DEBATERS</h3>
+            <div class="debate-persona-selectors" id="debateSelectors">
+              <!-- Dynamically populated with checkboxes -->
+            </div>
+
+            <div class="debate-options">
+              <div class="option-field">
+                <label for="debateTurns">Debate Rounds:</label>
+                <select id="debateTurns">
+                  <option value="3">3 Turns (Quick Fire)</option>
+                  <option value="5" selected>5 Turns (Heated Argument)</option>
+                  <option value="8">8 Turns (Total War)</option>
+                </select>
+              </div>
+              <div class="option-field">
+                <label for="debateEvent">Debate Trigger Event:</label>
+                <input type="text" id="debateEvent" placeholder="Enter what they should argue about..." value="Dhoni got out for a run-out in a crucial run chase"/>
+              </div>
+            </div>
+
+            <div class="quick-tags-debate">
+              <button class="mini-tag" onclick="fillDebateEvent('Hardik Pandya captaincy booed by crowd')">Hardik Crowd Booing 😡</button>
+              <button class="mini-tag" onclick="fillDebateEvent('Gambhir and Kohli hug after the match')">Kohli-Gambhir Hug 🤝</button>
+              <button class="mini-tag" onclick="fillDebateEvent('Umpire makes highly controversial DRS decision')">DRS Controversy 📺</button>
+              <button class="mini-tag" onclick="fillDebateEvent('RCB bowls opposition out for 49 runs')">Opposition 49 All Out 🔥</button>
+            </div>
+
+            <button class="generate-btn glow-red" onclick="startAgenticDebate()" id="startDebateBtn">
+              INITIATE AGENTIC DEBATE ⚔️
+            </button>
+          </div>
+
+          <!-- LIVE DEBATE THREAD -->
+          <div class="debate-thread-card">
+            <div class="debate-thread-header">
+              <span class="pulse-red">🔴 LIVE CHAT LOG</span>
+              <span class="debate-status" id="debateStatus">Ready to engage...</span>
+            </div>
+            <div class="debate-feed" id="debateFeed">
+              <div class="feed-placeholder">
+                The agentic debate thread will generate live here. Watch RCB fans fight MI fans, while Analysts struggle to keep order!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB CONTENT: LIVE TICKER -->
+        <section id="tab-ticker" class="tab-content">
+          <div class="panel-header">
+            <h2>LIVE IPL TICKER SIMULATOR</h2>
+            <p>Generate simulated high-stakes live match events. Watch the dynamic dashboard adjust, and auto-debate in real time!</p>
+          </div>
+
+          <div class="ticker-controls-card">
+            <div class="simulation-status">
+              <div class="status-indicator">
+                <span class="sim-pulse-dot" id="simPulseDot"></span>
+                <span>STATUS: <strong id="simStatusText">PAUSED</strong></span>
+              </div>
+              <div class="live-score">
+                <span id="tickerMatchName">RCB vs CSK</span>
+                <span class="badge-score" id="tickerScore">178/4 (18.2 Overs)</span>
+              </div>
+            </div>
+
+            <div class="ticker-btn-row">
+              <button class="ticker-btn play" id="tickerPlayBtn" onclick="toggleTickerSimulation()">
+                ▶️ START MATCH TICKER
+              </button>
+              <button class="ticker-btn next" onclick="generateSingleTickerEvent()">
+                ⏭️ NEXT BALL (MANUAL)
+              </button>
+              <div class="checkbox-option">
+                <label>
+                  <input type="checkbox" id="autoDebateToggle" checked/>
+                  Auto-Feed to debate arena
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticker-log-card">
+            <h3>BALL-BY-BALL MATCH STREAM</h3>
+            <div class="ticker-stream" id="tickerStream">
+              <div class="ticker-empty">
+                Match ticker is idle. Click "START MATCH TICKER" or "NEXT BALL" to trigger intense stadium drama!
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB CONTENT: PERSONA LAB -->
+        <section id="tab-lab" class="tab-content">
+          <div class="panel-header">
+            <h2>🧪 CUSTOM PERSONA LABORATORY</h2>
+            <p>Engineer custom AI fan profiles. Specify their bias, signature responses, and unleash them in debates!</p>
+          </div>
+
+          <div class="lab-container">
+            <form id="customPersonaForm" onsubmit="saveCustomPersona(event)" class="persona-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="personaName">Persona Name:</label>
+                  <input type="text" id="personaName" placeholder="e.g. GAMBHIR VETERAN" required />
+                </div>
+                <div class="form-group">
+                  <label for="personaEmoji">Avatar Emoji:</label>
+                  <select id="personaEmoji">
+                    <option value="🦁">🦁 Lion</option>
+                    <option value="👑">👑 Crown / King</option>
+                    <option value="🤬">🤬 Angry Swear</option>
+                    <option value="🤓">🤓 Nerd Analyst</option>
+                    <option value="🍿">🍿 Popcorn Neutral</option>
+                    <option value="🚀">🚀 Rocket Fanatic</option>
+                    <option value="🤡">🤡 Clown Meme</option>
+                    <option value="🔥">🔥 Fire</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="personaTeam">Team Bias:</label>
+                  <select id="personaTeam">
+                    <option value="RCB">Royal Challengers Bengaluru (RCB)</option>
+                    <option value="CSK">Chennai Super Kings (CSK)</option>
+                    <option value="MI">Mumbai Indians (MI)</option>
+                    <option value="NEUTRAL">Neutral / Cricket Fan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="personaVibe">Vibe Style:</label>
+                  <select id="personaVibe">
+                    <option value="AGGRESSIVE">Aggressive Fanatic</option>
+                    <option value="CALM">Calm Stats Geek</option>
+                    <option value="SARCASTIC">Sarcastic Meme Creator</option>
+                    <option value="DEPRESSED">Always Anxious/Hopeless</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="personaCatchphrases">Signature Catchphrases (Comma separated):</label>
+                <textarea id="personaCatchphrases" placeholder="e.g., Facts only bro, absolute fraud, pure legacy, what is this selection, calculated mastermind" class="mini-textarea" required></textarea>
+              </div>
+
+              <button type="submit" class="generate-btn glow-yellow">
+                🧬 CREATE & REGISTER PERSONA
+              </button>
+            </form>
+
+            <div class="custom-personas-list">
+              <h3>REGISTERED CUSTOM PERSONAS</h3>
+              <div class="custom-personas-grid" id="customPersonasGrid">
+                <!-- Dynamically populated custom personas -->
+                <div class="no-custom-personas">
+                  No custom personas created yet. Build one above to see it appear!
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB CONTENT: SETTINGS -->
+        <section id="tab-settings" class="tab-content">
+          <div class="panel-header">
+            <h2>⚙️ SETTINGS & API INTEGRATION</h2>
+            <p>Connect Gemini API to unlock real-time generative capabilities with multi-agent intelligence!</p>
+          </div>
+
+          <div class="settings-card">
+            <h3>GEMINI API CONNECTOR (OPTIONAL)</h3>
+            <p class="settings-info">
+              By default, PitchPersona AI uses a advanced <strong>Local Rule-Based AI Emulator</strong> loaded with custom slang and templates. 
+              Adding your own Gemini API key enables full, custom language generation directly from Google's models!
+            </p>
+
+            <div class="form-group margin-top">
+              <label for="apiKeyInput">Gemini API Key:</label>
+              <input type="password" id="apiKeyInput" placeholder="AIzaSy..." />
+              <span class="security-note">🔒 Saved entirely client-side in your local browser storage. Never sent to intermediate servers.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="modelSelect">Select AI Model:</label>
+              <select id="modelSelect">
+                <option value="gemini-1.5-flash">Gemini 1.5 Flash (Recommended - Super Fast)</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro (Extremely Detailed)</option>
+              </select>
+            </div>
+
+            <div class="settings-actions">
+              <button class="ticker-btn play" onclick="saveSettings()">💾 SAVE SETTINGS</button>
+              <button class="ticker-btn next" onclick="clearSettings()">❌ CLEAR API KEY</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- RIGHT COLUMN: DYNAMIC ANALYTICS DASHBOARD -->
+      <aside class="dashboard-sidebar">
+        
+        <!-- DASHBOARD CONTAINER -->
+        <div class="dashboard-card">
+          <h2>LIVE STADIUM STATS</h2>
+          <p class="dashboard-sub text-purple">Calculated from latest live reactions</p>
+
+          <!-- WIN PROBABILITY SVG CHART -->
+          <div class="metric-group">
+            <div class="metric-header">
+              <span>WIN PROBABILITY</span>
+              <span id="winProbText" class="text-orange font-orbitron">50% - 50%</span>
+            </div>
+            <div class="win-prob-bar">
+              <div class="team-a-bar" id="teamABar" style="width: 50%;"></div>
+              <div class="team-b-bar" id="teamBBar" style="width: 50%;"></div>
+            </div>
+            <div class="win-prob-labels">
+              <span id="teamALabel">RCB/CSK</span>
+              <span id="teamBLabel">OPPONENT</span>
+            </div>
+          </div>
+
+          <!-- NEON HYPE METER (RADIAL OR DIAL) -->
+          <div class="metric-group flex-row">
+            <div class="radial-gauge-container">
+              <svg viewBox="0 0 100 100" class="radial-gauge">
+                <circle cx="50" cy="50" r="40" class="gauge-bg"></circle>
+                <circle cx="50" cy="50" r="40" class="gauge-fill" id="hypeGaugeFill" stroke-dasharray="251.2" stroke-dashoffset="125.6"></circle>
+                <text x="50" y="55" class="gauge-text" id="hypeText">50%</text>
+              </svg>
+              <span class="radial-label">HYPE FACTOR</span>
+            </div>
+
+            <div class="radial-gauge-container">
+              <svg viewBox="0 0 100 100" class="radial-gauge">
+                <circle cx="50" cy="50" r="40" class="gauge-bg"></circle>
+                <circle cx="50" cy="50" r="40" class="gauge-fill rage-fill" id="rageGaugeFill" stroke-dasharray="251.2" stroke-dashoffset="188.4"></circle>
+                <text x="50" y="55" class="gauge-text" id="rageText">25%</text>
+              </svg>
+              <span class="radial-label">FAN TENSION</span>
+            </div>
+          </div>
+
+          <!-- DYNAMIC STATS COUNTER -->
+          <div class="metric-group">
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-val font-orbitron" id="statTrophyMI">5🏆</span>
+                <span class="stat-lbl">MI Legacy</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val font-orbitron" id="statTrophyCSK">5🏆</span>
+                <span class="stat-lbl">CSK Legacy</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val font-orbitron" id="statTrophyRCB" style="color: #ff3c3c;">0🏆</span>
+                <span class="stat-lbl">RCB Hope</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val font-orbitron text-purple" id="statMemeLevel">99+</span>
+                <span class="stat-lbl">Meme Cap</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CURRENT EVENT FEED -->
+          <div class="metric-group border-top">
+            <span class="metric-title-small">ACTIVE FOCUS:</span>
+            <div class="active-focus-card" id="sidebarFocusEvent">
+              "No active cricket match event. Choose a persona or play the live simulator to feed the stadium metrics!"
+            </div>
+          </div>
+
+          <!-- AUDIO SYNTH PANEL -->
+          <div class="audio-panel-card">
+            <h4>🔊 TEXT-TO-SPEECH VOICE</h4>
+            <div class="voice-selector-box">
+              <label for="voiceSelect">Select Accent:</label>
+              <select id="voiceSelect" onchange="speakTest()">
+                <option value="default">Default System Voice</option>
+              </select>
+            </div>
+            <div class="audio-waves" id="audioWaves">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
